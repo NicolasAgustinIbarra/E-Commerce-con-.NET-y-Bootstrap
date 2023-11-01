@@ -11,6 +11,8 @@ using System.Data.SqlTypes;
 using System.Collections;
 using System.Data.SqlClient;
 
+using System.Configuration;
+
 namespace Negocio
 {
     public class ArticulosNegocio
@@ -198,9 +200,10 @@ namespace Negocio
 
             SqlDataReader Lector;
 
+            
             try
             {
-                conexion.ConnectionString = "server= .\\SQLEXPRESS; database= CATALOGO_WEB_DB; integrated security= true;";
+                conexion.ConnectionString = ConfigurationManager.ConnectionStrings["cadena"].ToString(); /* "server= .\\SQLEXPRESS; database= CATALOGO_WEB_DB; integrated security= true;";*/
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = "select codigo, nombre, A.descripcion Descripcion,c.Descripcion Categoria,m.Descripcion Marca, imagenUrl, precio, A.IdCategoria, A.IdMarca, A.Id from ARTICULOS A, CATEGORIAS C, MARCAS M where A.IdCategoria = C.Id and A.IdMarca = m.Id ";
                 //datos.setearConsulta("select codigo, nombre, A.descripcion Descripcion,c.Descripcion Categoria,m.Descripcion Marca, imagenUrl, precio, A.IdCategoria, A.IdMarca, A.Id from ARTICULOS A, CATEGORIAS C, MARCAS M where A.IdCategoria = C.Id and A.IdMarca = m.Id ");
